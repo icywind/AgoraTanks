@@ -4,6 +4,9 @@ using Tanks.Map;
 using Tanks.Rules;
 using Tanks.Networking;
 using Tanks.Utilities;
+#if PLATFORM_ANDROID
+using UnityEngine.Android;
+#endif
 
 namespace Tanks
 {
@@ -73,6 +76,26 @@ namespace Tanks
             base.Awake();
             Debug.Assert(!string.IsNullOrEmpty(mAgoraAppId), "Agora AppId needs to be assigned in GameSettings!");
         }
+        
+        
+ #if PLATFORM_ANDROID
+    string[] mPermissions = { Permission.Camera, Permission.Microphone };
+
+    void Start()
+    {
+
+        foreach (var permit in mPermissions)
+        {
+            if (!Permission.HasUserAuthorizedPermission(permit))
+            {
+
+                Debug.LogWarning("Start: requesting permission " + permit);
+                Permission.RequestUserPermission(permit);
+
+            }
+        }
+    }
+#endif
 
         /// <summary>
         /// Sets the index of the map.

@@ -31,7 +31,6 @@ public class AgoraVideoController
     private AgoraVideoController()
     {
         Debug_Log("Agora IRtcEngine Version : " + IRtcEngine.GetSdkVersion());
-        _instance = new AgoraVideoController();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
         mRtcEngine = IRtcEngine.GetEngine(Tanks.GameSettings.s_Instance.AgoraAppId);
@@ -63,8 +62,22 @@ public class AgoraVideoController
 
     }
 
+    public void JoinChannel(string channelName, uint playerId = 0)
+    {
+        mRtcEngine.EnableVideo();
+        mRtcEngine.EnableVideoObserver();
+        mRtcEngine.JoinChannel(channelName, "extra", playerId); // join the channel with given match name
+        Debug_Log(playerId.ToString() + " joining channel:" + channelName);
+    }
 
-
+    public void LeaveChannel()
+    {
+        mRtcEngine.DisableVideo();
+        mRtcEngine.DisableVideoObserver();
+        mRtcEngine.LeaveChannel();
+    }
+    
+    
     void Debug_Log(string text)
     {
         Debug.LogWarning("[Agora] " + text);

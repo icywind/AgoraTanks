@@ -75,6 +75,7 @@ namespace Tanks.UI
 					{
 						m_MenuUi.HideInfoPopup();
 						m_MenuUi.ShowLobbyPanel();
+						AgoraVideoController.instance.JoinChannel(m_MatchNameInput.text);
 					}
 				});
 		}

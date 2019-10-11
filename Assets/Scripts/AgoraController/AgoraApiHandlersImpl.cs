@@ -8,6 +8,7 @@ public class AgoraApiHandlersImpl : IAgoraAPIHandlers
     public AgoraApiHandlersImpl(IRtcEngine engine)
     {
         mRtcEngine = engine;
+        BindEngineCalls();
     }
 
     ~AgoraApiHandlersImpl()
