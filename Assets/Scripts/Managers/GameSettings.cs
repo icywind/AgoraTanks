@@ -24,6 +24,14 @@ namespace Tanks
 		[SerializeField]
 		protected ModeList m_ModeList;
 
+        [SerializeField]
+        protected string mAgoraAppId;
+
+        public string AgoraAppId
+        {
+            get { return mAgoraAppId; }
+        }
+
 		public MapDetails map
 		{
 			get;
@@ -60,11 +68,17 @@ namespace Tanks
 			get { return NetworkManager.s_Instance.isSinglePlayer; }
 		}
 
-		/// <summary>
-		/// Sets the index of the map.
-		/// </summary>
-		/// <param name="index">Index.</param>
-		public void SetMapIndex(int index)
+        protected override void Awake()
+        {
+            base.Awake();
+            Debug.Assert(!string.IsNullOrEmpty(mAgoraAppId), "Agora AppId needs to be assigned in GameSettings!");
+        }
+
+        /// <summary>
+        /// Sets the index of the map.
+        /// </summary>
+        /// <param name="index">Index.</param>
+        public void SetMapIndex(int index)
 		{
 			map = m_MapList[index];
 			mapIndex = index;
