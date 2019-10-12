@@ -65,13 +65,13 @@ namespace Tanks.UI
 		//Log player joining for tracing
 		protected virtual void PlayerJoined(TanksNetworkPlayer player)
 		{
-			Debug.LogFormat("Player joined {0}", player.name);
+			Debug.LogFormat("Player joined: {0}", player);
 		}
 
 		//Log player leaving for tracing
 		protected virtual void PlayerLeft(TanksNetworkPlayer player)
 		{
-			Debug.LogFormat("Player left {0}", player.name);
+			Debug.LogFormat("Player left: {0}", player);
 		}
 
 		//When players are all ready progress

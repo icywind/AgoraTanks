@@ -72,6 +72,7 @@ public class AgoraVideoController
 
     public void LeaveChannel()
     {
+        Debug_Log("Leaving channel now....");
         mRtcEngine.DisableVideo();
         mRtcEngine.DisableVideoObserver();
         mRtcEngine.LeaveChannel();

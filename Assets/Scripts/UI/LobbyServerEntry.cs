@@ -29,11 +29,10 @@ namespace Tanks.UI
 		//Sets up the UI
 		public void Populate(MatchInfoSnapshot match, Color c)
 		{
-			string name = match.name;
+			string[] split = match.name.Split(new char[1] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+			string channel_name = split[1].Replace(" ", string.Empty);
+			m_ServerInfoText.text = channel_name;
 
-			string[] split = name.Split(new char [1]{ '|' }, StringSplitOptions.RemoveEmptyEntries);
-
-			m_ServerInfoText.text = split[1].Replace(" ", string.Empty);
 			m_ModeText.text = split[0];
 
 			m_SlotInfo.text = string.Format("{0}/{1}", match.currentSize, match.maxSize);
@@ -41,7 +40,7 @@ namespace Tanks.UI
 			NetworkID networkId = match.networkId;
 
 			m_JoinButton.onClick.RemoveAllListeners();
-			m_JoinButton.onClick.AddListener(() => JoinMatch(networkId));
+			m_JoinButton.onClick.AddListener(() => JoinMatch(networkId, channel_name));
 
 			m_JoinButton.interactable = match.currentSize < match.maxSize;
 
@@ -58,7 +57,7 @@ namespace Tanks.UI
 		}
 
 		//Fired when player clicks join
-		private void JoinMatch(NetworkID networkId)
+		private void JoinMatch(NetworkID networkId, string channelName)
 		{
 			MainMenuUI menuUi = MainMenuUI.s_Instance;
 
@@ -77,6 +76,8 @@ namespace Tanks.UI
 						menuUi.HideInfoPopup();
 						menuUi.ShowInfoPopup("Entering lobby...");
 						m_NetManager.gameModeUpdated += menuUi.ShowLobbyPanelForConnection;
+						
+						AgoraVideoController.instance.JoinChannel(channelName);
 					}
 				});
 		}

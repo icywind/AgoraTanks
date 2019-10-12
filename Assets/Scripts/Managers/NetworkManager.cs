@@ -342,6 +342,7 @@ namespace Tanks.Networking
 					break;
 				case NetworkGameType.Matchmaking:
 					StopMatchmakingGame();
+					AgoraVideoController.instance.LeaveChannel();
 					break;
 				case NetworkGameType.Singleplayer:
 					StopSingleplayerGame();
