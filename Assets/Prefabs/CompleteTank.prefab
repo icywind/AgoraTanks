@@ -748,6 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb8cdb8b19a50648b1ef1fb26a74db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  videoSurface: {fileID: 2644945225479970221}
 --- !u!114 &114000014242460566
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -36,6 +36,8 @@ namespace Tanks.TankControllers
 		//Synced rank, used at the end of the game to calculate the player's award
 		[SyncVar(hook = "OnRankChanged")]
 		protected int m_Rank = -1;
+		[SerializeField]
+		VideoSurface videoSurface;
 
 		#endregion
 
@@ -426,6 +428,12 @@ namespace Tanks.TankControllers
 		public void MarkTankAsRemoved()
 		{
 			removedTank = true;
+		}
+
+		public void SetAgoraId(uint id)
+		{
+			Debug.Log("Tank set UI:" + id);
+			videoSurface.SetForUser(id);
 		}
 
 		#region Networking
