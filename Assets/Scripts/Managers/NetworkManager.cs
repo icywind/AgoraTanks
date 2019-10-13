@@ -746,7 +746,12 @@ namespace Tanks.Networking
 		public void RegisterNetworkPlayer(NetworkPlayer newPlayer)
 		{
 			MapDetails currentMap = m_Settings.map;
-			Debug.Log("Player joined");
+			Debug.Log(string.Format("Player -------> joined, :{0}", newPlayer));
+		//	if (connectedPlayers.Count > 0)
+			{
+				// ignore the first (self)
+				AgoraPlayerController.instance.AddNetworkPlayer(newPlayer);
+			}
 
 			connectedPlayers.Add(newPlayer);
 			newPlayer.becameReady += OnPlayerSetReady;
@@ -788,7 +793,7 @@ namespace Tanks.Networking
 			{
 				connectedPlayers.RemoveAt(index);
 			}
-
+			AgoraPlayerController.instance.RemoveNetworkPlayer(removedPlayer);
 			UpdatePlayerIDs();
 
 			if (playerLeft != null)

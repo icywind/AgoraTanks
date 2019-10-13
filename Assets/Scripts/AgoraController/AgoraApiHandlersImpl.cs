@@ -20,7 +20,7 @@ public class AgoraApiHandlersImpl : IAgoraAPIHandlers
     {
         string joinSuccessMessage = string.Format("joinChannel callback uid: {0}, channel: {1}, version: {2}", uid, channelName, IRtcEngine.GetSdkVersion());
         Debug_Log(joinSuccessMessage);
-        // AgoraPlayerController.instance.OnChannelJoins(uid);
+        AgoraPlayerController.instance.OnChannelJoins(uid);
     }
 
     public void LeaveChannelHandler(RtcStats stats)
@@ -36,7 +36,7 @@ public class AgoraApiHandlersImpl : IAgoraAPIHandlers
     {
         string userJoinedMessage = string.Format("onUserJoined callback uid:{0} elapsed:{1}", uid, elapsed);
         Debug_Log(userJoinedMessage);
-        // AgoraPlayerController.instance.AddAgoraPlayer(uid);
+        AgoraPlayerController.instance.AddAgoraPlayer(uid);
     }
 
     public void UserOfflineHandler(uint uid, USER_OFFLINE_REASON reason)
@@ -236,7 +236,7 @@ public class AgoraApiHandlersImpl : IAgoraAPIHandlers
         mRtcEngine.OnUserOffline += UserOfflineHandler;
         mRtcEngine.OnVideoSizeChanged += OnVideoSizeChangedHandler;
         mRtcEngine.OnVolumeIndication += VolumeIndicationHandler;
-        mRtcEngine.OnWarning += SDKWarningHandler;
+     //   mRtcEngine.OnWarning += SDKWarningHandler;
 
     }
 }

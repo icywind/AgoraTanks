@@ -212,6 +212,7 @@ namespace Tanks.Networking
 			{
 				CmdClientReadyInGameScene();
 			}
+			AgoraPlayerController.instance.Bind();
 		}
 
 		/// <summary>
@@ -525,5 +526,11 @@ namespace Tanks.Networking
 		}
 
 		#endregion
+		
+		public override string ToString()
+		{
+			return string.Format("playerName:{0} playerID:{1}, controllerID:{2}, netID:{3}", playerName, playerId, playerControllerId, netId);
+		}
+		
 	}
 }
