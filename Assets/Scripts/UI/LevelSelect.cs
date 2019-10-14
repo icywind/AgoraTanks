@@ -271,6 +271,7 @@ namespace Tanks.UI
 			settings.SetupSinglePlayer(m_CurrentIndex, new ModeDetails(details.name, details.description, details.rulesProcessor));
 
 			m_NetManager.ProgressToGameScene();
+			AgoraVideoController.instance.JoinChannel(details.name);
 		}
 
 		//Assigned to lock button. Shows an explanatory popup.
