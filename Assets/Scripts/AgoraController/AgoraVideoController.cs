@@ -22,11 +22,10 @@ public class AgoraVideoController
         }
     }
 
-
 	private static AgoraVideoController _instance;
 
     private IRtcEngine mRtcEngine;
-    private IAgoraAPIHandlers agoraAPI;
+    private AgoraApiHandlersImpl agoraAPI;
 
     private AgoraVideoController()
     {
@@ -57,9 +56,7 @@ public class AgoraVideoController
             Permission.RequestUserPermission(Permission.Camera);
         }
 #endif
-
         mRtcEngine.SetLogFilter(LOG_FILTER.DEBUG | LOG_FILTER.INFO | LOG_FILTER.WARNING | LOG_FILTER.ERROR | LOG_FILTER.CRITICAL);
-
     }
 
     public void JoinChannel(string channelName, uint playerId = 0)
