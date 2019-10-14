@@ -236,6 +236,15 @@ namespace Tanks.TankControllers
 				DisableShooting();
 				player.CmdSetReady();
 			}
+			else
+			{
+				uint uid = AgoraPlayerController.instance.GetAgoraID(player);
+				if (uid != 0 && videoSurface != null)
+				{
+					Debug.Log("Tank init: Found agora uid for player ------>" + uid);
+					videoSurface.SetForUser(uid);
+				}
+			}
 		}
 
 		public override void OnNetworkDestroy()
@@ -428,12 +437,6 @@ namespace Tanks.TankControllers
 		public void MarkTankAsRemoved()
 		{
 			removedTank = true;
-		}
-
-		public void SetAgoraId(uint id)
-		{
-			Debug.Log("Tank set UI:" + id);
-			videoSurface.SetForUser(id);
 		}
 
 		#region Networking

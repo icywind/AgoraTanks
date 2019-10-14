@@ -92,13 +92,13 @@ public class AgoraPlayerController
         }
     }
 
-    public void Bind()
+    public uint GetAgoraID(TankNt.NetworkPlayer player)
     {
-        Debug.LogWarning("Binding player ids:" + NetworkToAgoraIDMap.Count);
-        foreach (var np in NetworkToAgoraIDMap.Keys)
+        if (NetworkToAgoraIDMap.ContainsKey(player))
         {
-            Debug.Log(string.Format("player:{0} ----> uid:{1} ", np, NetworkToAgoraIDMap[np]));
-            np.tank?.SetAgoraId(NetworkToAgoraIDMap[np]);
+            return NetworkToAgoraIDMap[player];
         }
+
+        return 0;
     }
 }

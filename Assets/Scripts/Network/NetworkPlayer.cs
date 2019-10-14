@@ -212,7 +212,6 @@ namespace Tanks.Networking
 			{
 				CmdClientReadyInGameScene();
 			}
-			AgoraPlayerController.instance.Bind();
 		}
 
 		/// <summary>

@@ -335,7 +335,11 @@ namespace Tanks.UI
 
 		public void OnQuitGameClicked()
 		{
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#else
 			Application.Quit();
+#endif
 		}
 
 		#endregion
