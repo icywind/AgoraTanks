@@ -36,6 +36,7 @@ namespace Tanks.TankControllers
 		//Synced rank, used at the end of the game to calculate the player's award
 		[SyncVar(hook = "OnRankChanged")]
 		protected int m_Rank = -1;
+		
 		[SerializeField]
 		VideoSurface videoSurface;
 
@@ -193,6 +194,7 @@ namespace Tanks.TankControllers
 		{
 			if (initialized)
 			{
+				Debug.LogWarning("ANother call to initialize");
 				return;
 			}
 
@@ -231,18 +233,29 @@ namespace Tanks.TankControllers
 
 			GameManager.AddTank(this);
 
-			if (player.hasAuthority)
+			Debug.LogWarning("Tank initializing player:" + player);
+			if (player.playerId == 0)
 			{
 				DisableShooting();
 				player.CmdSetReady();
+				if (videoSurface != null)
+				{
+					videoSurface.gameObject.name = string.Format("video-{0}", 0);
+				}
 			}
 			else
 			{
 				uint uid = AgoraPlayerController.instance.GetAgoraID(player);
+				Debug.LogWarning("Tank init: Found agora uid for player ------>" + uid);
 				if (uid != 0 && videoSurface != null)
 				{
-					Debug.Log("Tank init: Found agora uid for player ------>" + uid);
 					videoSurface.SetForUser(uid);
+					videoSurface.gameObject.name = string.Format("video-{0}" , uid);
+				}
+				else
+				{
+					Debug.Assert( uid != 0, "Couldn't find uid for player:" + player);
+					Debug.Assert(videoSurface != null, "videoSurface = null");
 				}
 			}
 		}

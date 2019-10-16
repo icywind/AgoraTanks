@@ -58,14 +58,15 @@ namespace Tanks.UI
 		//Add lobby player to UI
 		public void AddPlayer(LobbyPlayer player)
 		{
-			Debug.Log("Add player to list");
+			Debug.Log("Add player to list:" + player);
 			player.transform.SetParent(m_PlayerListContentTransform, false);
 		}
 		
 		//Log player joining for tracing
 		protected virtual void PlayerJoined(TanksNetworkPlayer player)
 		{
-			Debug.LogFormat("Player joined: {0}", player);
+			Debug.LogFormat("Player joined----> {0}", player);
+			AgoraPlayerController.instance.AddNetworkPlayer(player);
 		}
 
 		//Log player leaving for tracing

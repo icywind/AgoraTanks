@@ -528,7 +528,8 @@ namespace Tanks.Networking
 		
 		public override string ToString()
 		{
-			return string.Format("playerName:{0} playerID:{1}, controllerID:{2}, netID:{3}", playerName, playerId, playerControllerId, netId);
+			return string.Format("playerName:{0} playerID:{1}, controllerID:{2}, netID:{3}, hasAuth:{4}, isClient:{5}, isServer:{6}", 
+				playerName, playerId, playerControllerId, netId, hasAuthority, isClient, isServer);
 		}
 		
 	}

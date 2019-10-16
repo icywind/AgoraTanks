@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using TankNt = Tanks.Networking;
@@ -6,9 +7,8 @@ using TankNt = Tanks.Networking;
 public class AgoraPlayerController
 {
     private Dictionary<TankNt.NetworkPlayer, uint> NetworkToAgoraIDMap = new Dictionary<TankNt.NetworkPlayer, uint>();
-
-    private TankNt.NetworkPlayer pendingPlayer;
-    private uint? pendingAgoraId;
+    private List<TankNt.NetworkPlayer> m_NetworkPlayers = new List<TankNt.NetworkPlayer>();
+    private List<uint> m_AgoraUserIds = new List<uint>();
 
     private static AgoraPlayerController _instance;
     public static AgoraPlayerController instance
@@ -25,21 +25,17 @@ public class AgoraPlayerController
 
     private AgoraPlayerController()
     {
-        ResetIds();
     }
 
-    public void AddNetworkPlayer(TankNt.NetworkPlayer playerId) {
-        if (pendingAgoraId.HasValue)
+    public void AddNetworkPlayer(TankNt.NetworkPlayer player) 
+    {
+        if (player.playerId == 0)
         {
-            NetworkToAgoraIDMap[playerId] = (uint)pendingAgoraId;
-            pendingAgoraId = null;
-            return;
+            Debug.LogWarning("List: Player ignore for being LocalPlayer:" + player);
         }
-
-        if (pendingPlayer == null) {
-            pendingPlayer = playerId;
-        } else {
-            Debug.LogError(string.Format("Player id exists:{0} while adding:{1}", pendingPlayer, playerId));
+        else
+        {
+            m_NetworkPlayers.Add(player);
         }
     }
 
@@ -49,39 +45,33 @@ public class AgoraPlayerController
     /// <param name="uid"></param>
     public void AddAgoraPlayer(uint uid)
     {
-        if (pendingPlayer != null)
-        {
-            NetworkToAgoraIDMap[pendingPlayer] = uid;
-            pendingPlayer = null;
-        }
-        else
-        {
-            pendingAgoraId = uid;
-        }
+        Debug.LogWarning("Adding Agora player: " + uid);
+        m_AgoraUserIds.Add(uid);
     }
+    
     /// <summary>
     ///   Assign local player uid upon ChannelJoin event
     /// </summary>
     /// <param name="uid"></param>
     public void OnChannelJoins(uint uid)
     {
-        if (TankNt.NetworkPlayer.s_LocalPlayer != null)
-        { 
-            Debug.Log("Channel joined as local player");
-          //  NetworkToAgoraIDMap[TankNt.NetworkPlayer.s_LocalPlayer] = uid;
-            // clear the pendingPlayer which sets at the local player set up
-            ResetIds();
-        }
-        else
-        {
-            Debug.LogWarning("Channel joined as local player but no networkplayer instance!"); 
-        }
+        Reset();
     }
 
-    void ResetIds()
+    void Bind()
     {
-        pendingPlayer = null;
-        pendingAgoraId = null;
+        int total = Math.Max(m_AgoraUserIds.Count, m_NetworkPlayers.Count);
+        for(int i=0; i<total; i++)
+        {
+            NetworkToAgoraIDMap[m_NetworkPlayers[i]] = m_AgoraUserIds[i];
+        }
+    }
+    
+    public void Reset()
+    {
+        m_NetworkPlayers.Clear();
+        m_AgoraUserIds.Clear();
+        NetworkToAgoraIDMap.Clear();
     }
 
     public void RemoveNetworkPlayer(TankNt.NetworkPlayer player)
@@ -94,6 +84,11 @@ public class AgoraPlayerController
 
     public uint GetAgoraID(TankNt.NetworkPlayer player)
     {
+        if (NetworkToAgoraIDMap.Count == 0)
+        {
+            Bind();
+        }
+        
         if (NetworkToAgoraIDMap.ContainsKey(player))
         {
             return NetworkToAgoraIDMap[player];
