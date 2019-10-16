@@ -25,13 +25,25 @@ public class AgoraPlayerController
 
     private AgoraPlayerController()
     {
+        TankNt.NetworkManager.s_Instance.playerJoined += AddNetworkPlayer;
+        TankNt.NetworkManager.s_Instance.playerLeft += RemoveNetworkPlayer;
+    }
+
+    ~AgoraPlayerController()
+    {
+        if (TankNt.NetworkManager.s_Instance != null)
+        {
+            TankNt.NetworkManager.s_Instance.playerJoined -= AddNetworkPlayer;
+            TankNt.NetworkManager.s_Instance.playerLeft -= RemoveNetworkPlayer;
+        }
     }
 
     public void AddNetworkPlayer(TankNt.NetworkPlayer player) 
     {
-        if (player.playerId == 0)
+		Debug.LogFormat("Player joined----> {0}", player);
+        if (player.isLocalPlayer)
         {
-            Debug.LogWarning("List: Player ignore for being LocalPlayer:" + player);
+            Debug.Log("List: Player ignore for being LocalPlayer:" + player);
         }
         else
         {
@@ -45,8 +57,8 @@ public class AgoraPlayerController
     /// <param name="uid"></param>
     public void AddAgoraPlayer(uint uid)
     {
-        Debug.LogWarning("Adding Agora player: " + uid);
         m_AgoraUserIds.Add(uid);
+        Debug.Log("Adding Agora player: " + uid);
     }
     
     /// <summary>
@@ -60,7 +72,7 @@ public class AgoraPlayerController
 
     void Bind()
     {
-        int total = Math.Max(m_AgoraUserIds.Count, m_NetworkPlayers.Count);
+        int total = Math.Min(m_AgoraUserIds.Count, m_NetworkPlayers.Count);
         for(int i=0; i<total; i++)
         {
             NetworkToAgoraIDMap[m_NetworkPlayers[i]] = m_AgoraUserIds[i];
@@ -76,6 +88,7 @@ public class AgoraPlayerController
 
     public void RemoveNetworkPlayer(TankNt.NetworkPlayer player)
     {
+        Debug.LogWarningFormat("Player left and removed:{0}", player);
         if (NetworkToAgoraIDMap.ContainsKey(player))
         {
             NetworkToAgoraIDMap.Remove(player);
@@ -95,5 +108,11 @@ public class AgoraPlayerController
         }
 
         return 0;
+    }
+
+    public void Print()
+    {
+        Debug.LogFormat("NetWorkPlayers:{0}", String.Join(" : ", m_NetworkPlayers ));
+        Debug.LogFormat("AgoraIds:{0}", String.Join(" : ", m_AgoraUserIds ));
     }
 }

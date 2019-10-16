@@ -769,7 +769,7 @@ namespace Tanks.Networking
 			{
 				playerJoined(newPlayer);
 			}
-
+			// AgoraPlayerController.instance.AddNetworkPlayer(newPlayer);
 			newPlayer.gameDetailsReady += FireGameModeUpdated;
 		}
 
@@ -786,7 +786,6 @@ namespace Tanks.Networking
 			{
 				connectedPlayers.RemoveAt(index);
 			}
-			AgoraPlayerController.instance.RemoveNetworkPlayer(removedPlayer);
 			UpdatePlayerIDs();
 
 			if (playerLeft != null)

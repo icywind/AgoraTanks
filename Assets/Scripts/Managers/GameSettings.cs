@@ -75,6 +75,7 @@ namespace Tanks
         {
             base.Awake();
             Debug.Assert(!string.IsNullOrEmpty(mAgoraAppId), "Agora AppId needs to be assigned in GameSettings!");
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;
         }
         
         

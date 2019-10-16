@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -194,7 +195,6 @@ namespace Tanks.TankControllers
 		{
 			if (initialized)
 			{
-				Debug.LogWarning("ANother call to initialize");
 				return;
 			}
 
@@ -233,11 +233,21 @@ namespace Tanks.TankControllers
 
 			GameManager.AddTank(this);
 
-			Debug.LogWarning("Tank initializing player:" + player);
-			if (player.playerId == 0)
+			StartCoroutine(SetupVideoSurface(player));
+		}
+
+		IEnumerator SetupVideoSurface(TanksNetworkPlayer player)
+		{
+			Debug.Log("Tank initializing player:" + player);
+			yield return new WaitForFixedUpdate();
+			if (player.hasAuthority)
 			{
 				DisableShooting();
-				player.CmdSetReady();
+			}
+			player.CmdSetReady();
+
+			if (player.isLocalPlayer)
+			{
 				if (videoSurface != null)
 				{
 					videoSurface.gameObject.name = string.Format("video-{0}", 0);
@@ -246,18 +256,19 @@ namespace Tanks.TankControllers
 			else
 			{
 				uint uid = AgoraPlayerController.instance.GetAgoraID(player);
-				Debug.LogWarning("Tank init: Found agora uid for player ------>" + uid);
+				Debug.LogFormat("Tank player {0}: Found agora uid for player ------> {1} " ,player, uid);
 				if (uid != 0 && videoSurface != null)
 				{
-					videoSurface.SetForUser(uid);
 					videoSurface.gameObject.name = string.Format("video-{0}" , uid);
+					videoSurface.SetForUser(uid);
 				}
 				else
 				{
-					Debug.Assert( uid != 0, "Couldn't find uid for player:" + player);
+					Debug.Assert( uid != 0, "Couldn't find uid for player:" + player.playerId);
+					AgoraPlayerController.instance.Print();
 					Debug.Assert(videoSurface != null, "videoSurface = null");
 				}
-			}
+			}	
 		}
 
 		public override void OnNetworkDestroy()

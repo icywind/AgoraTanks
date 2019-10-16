@@ -5,15 +5,15 @@ using UnityEngine;
 namespace Tanks.Utilities { 
     public class FixedRotation : MonoBehaviour
     {
-        [SerializeField]
-        Quaternion rotation;
+        // Plane facing front
+        readonly Quaternion m_Rotation = Quaternion.Euler(-45,45,0); 
         void Awake()
         {
-            rotation = transform.rotation;
+           // rotation = transform.rotation;
         }
         void LateUpdate()
         {
-            transform.rotation = rotation;
+            transform.rotation = m_Rotation;
         }
     }
 }

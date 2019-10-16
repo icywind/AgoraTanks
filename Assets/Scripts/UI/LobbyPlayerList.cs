@@ -65,14 +65,15 @@ namespace Tanks.UI
 		//Log player joining for tracing
 		protected virtual void PlayerJoined(TanksNetworkPlayer player)
 		{
-			Debug.LogFormat("Player joined----> {0}", player);
-			AgoraPlayerController.instance.AddNetworkPlayer(player);
+			// Debug.LogFormat("Player joined----> {0}", player);
+			// AgoraPlayerController.instance.AddNetworkPlayer(player);
 		}
 
 		//Log player leaving for tracing
 		protected virtual void PlayerLeft(TanksNetworkPlayer player)
 		{
-			Debug.LogFormat("Player left: {0}", player);
+			//Debug.LogFormat("Player left: {0}", player);
+			//AgoraPlayerController.instance.RemoveNetworkPlayer(player);
 		}
 
 		//When players are all ready progress
