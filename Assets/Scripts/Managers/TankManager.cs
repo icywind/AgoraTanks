@@ -167,6 +167,7 @@ namespace Tanks.TankControllers
 			}
 		}
 
+		public const string LocalTankVideoName = "video-local";
 		#endregion
 
 
@@ -250,7 +251,7 @@ namespace Tanks.TankControllers
 			{
 				if (videoSurface != null)
 				{
-					videoSurface.gameObject.name = string.Format("video-{0}", 0);
+					videoSurface.gameObject.name = LocalTankVideoName;
 				}
 			}
 			else

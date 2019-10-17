@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using agora_gaming_rtc;
+using Tanks.TankControllers;
 
 #if (UNITY_ANDROID && UNITY_2018_3_OR_NEWER)
 using UnityEngine.Android;
@@ -74,8 +75,41 @@ public class AgoraVideoController
         mRtcEngine.DisableVideoObserver();
         mRtcEngine.LeaveChannel();
     }
-    
-    
+
+    public void MuteMic(bool mute)
+    {
+        mRtcEngine.MuteLocalAudioStream(mute);
+    }
+
+    private GameObject localVideoCache = null;
+    public void MuteCamera(bool mute)
+    {
+        mRtcEngine.MuteLocalVideoStream(mute);
+        if (mute)
+        {
+            mRtcEngine.DisableVideo();
+        }
+        else
+        {
+            mRtcEngine.EnableVideo();
+        }
+        
+        GameObject localVideo = GameObject.Find(TankManager.LocalTankVideoName);
+        if (localVideo != null)
+        {
+            localVideo.SetActive(!mute);
+            localVideoCache = localVideo;
+        }
+        else if (localVideoCache != null)
+        {
+            localVideoCache.SetActive(!mute); 
+        }
+    }
+
+    public void SwitchCamera()
+    {
+        mRtcEngine.SwitchCamera();
+    }
     void Debug_Log(string text)
     {
         Debug.LogWarning("[Agora] " + text);
