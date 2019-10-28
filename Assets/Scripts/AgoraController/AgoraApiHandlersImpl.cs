@@ -121,7 +121,7 @@ public class AgoraApiHandlersImpl
 
     protected void Debug_Log(string text)
     {
-        Debug.LogWarning("[Agora] " + text);
+        Debug.Log("[Agora] " + text);
     }
 
     protected void ReJoinChannelSuccessHandler(string channelName, uint uid, int elapsed)

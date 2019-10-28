@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using TankNt = Tanks.Networking;
 
 public class AgoraPlayerController
@@ -25,6 +24,7 @@ public class AgoraPlayerController
 
     private AgoraPlayerController()
     {
+        // Listen to the network player join and leave events
         TankNt.NetworkManager.s_Instance.playerJoined += AddNetworkPlayer;
         TankNt.NetworkManager.s_Instance.playerLeft += RemoveNetworkPlayer;
     }
@@ -62,7 +62,7 @@ public class AgoraPlayerController
     }
     
     /// <summary>
-    ///   Assign local player uid upon ChannelJoin event
+    ///   Clear the ID mappings when starting a new game on new channel join
     /// </summary>
     /// <param name="uid"></param>
     public void OnChannelJoins(uint uid)
@@ -70,6 +70,9 @@ public class AgoraPlayerController
         Reset();
     }
 
+    /// <summary>
+    ///   Create the mapping from network player to agora id
+    /// </summary>
     void Bind()
     {
         int total = Math.Min(m_AgoraUserIds.Count, m_NetworkPlayers.Count);
@@ -86,6 +89,10 @@ public class AgoraPlayerController
         NetworkToAgoraIDMap.Clear();
     }
 
+    /// <summary>
+    ///   If a player leaves, update the id mapping
+    /// </summary>
+    /// <param name="player"></param>
     public void RemoveNetworkPlayer(TankNt.NetworkPlayer player)
     {
         Debug.LogWarningFormat("Player left and removed:{0}", player);
@@ -95,6 +102,11 @@ public class AgoraPlayerController
         }
     }
 
+    /// <summary>
+    ///   Gets the Agora Id for a network player
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
     public uint GetAgoraID(TankNt.NetworkPlayer player)
     {
         if (NetworkToAgoraIDMap.Count == 0)

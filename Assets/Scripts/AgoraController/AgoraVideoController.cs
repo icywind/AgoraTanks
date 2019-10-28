@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using agora_gaming_rtc;
 using Tanks.TankControllers;
@@ -112,6 +110,6 @@ public class AgoraVideoController
     }
     void Debug_Log(string text)
     {
-        Debug.LogWarning("[Agora] " + text);
+        Debug.Log("[Agora] " + text);
     }
 }
