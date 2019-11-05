@@ -243,7 +243,8 @@ namespace Tanks.TankControllers
 			yield return new WaitForFixedUpdate();
 			if (player.hasAuthority)
 			{
-				DisableShooting();
+				// doesn't seem necessary
+				// DisableShooting();
 			}
 			player.CmdSetReady();
 
