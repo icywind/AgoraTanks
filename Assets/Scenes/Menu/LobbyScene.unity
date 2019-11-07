@@ -1420,12 +1420,12 @@ PrefabInstance:
     - target: {fileID: 224000012572686534, guid: b9270b012da1f401aa35f387a1774e74,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 58.99994
+      value: 59
       objectReference: {fileID: 0}
     - target: {fileID: 224000013755594902, guid: b9270b012da1f401aa35f387a1774e74,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 37.398376
+      value: 37.398315
       objectReference: {fileID: 0}
     - target: {fileID: 224000013002834458, guid: b9270b012da1f401aa35f387a1774e74,
         type: 3}
@@ -2290,7 +2290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400762, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: -0.000015258789
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
@@ -2442,7 +2442,7 @@ PrefabInstance:
     - target: {fileID: 114000011063095674, guid: 2572d1416d44e461e8b1ccc2e4bda005,
         type: 3}
       propertyPath: mAgoraAppId
-      value: cd985f11138e431d87aebc748cd93a33
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2572d1416d44e461e8b1ccc2e4bda005, type: 3}
@@ -3249,7 +3249,7 @@ PrefabInstance:
     - target: {fileID: 224000013129676260, guid: 2903e6040179f47389f2e065c9c60f08,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 58.99994
+      value: 59
       objectReference: {fileID: 0}
     - target: {fileID: 224000014185257872, guid: 2903e6040179f47389f2e065c9c60f08,
         type: 3}
