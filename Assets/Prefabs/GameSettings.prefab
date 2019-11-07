@@ -47,4 +47,4 @@ MonoBehaviour:
   m_SinglePlayerMapList: {fileID: 11400000, guid: 42b7e04e3d34044e2acaf7168c12200d,
     type: 2}
   m_ModeList: {fileID: 11400000, guid: c33951d837c994175bfac8c96b4eb622, type: 2}
-  mAgoraAppId: cd985f11138e431d87aebc748cd93a33
+  mAgoraAppId: 
