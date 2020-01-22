@@ -18,7 +18,7 @@ public class AgoraApiHandlersImpl
 
     protected void JoinChannelSuccessHandler(string channelName, uint uid, int elapsed)
     {
-        string joinSuccessMessage = string.Format("joinChannel callback uid: {0}, channel: {1}, version: {2}", 
+        string joinSuccessMessage = string.Format("joinChannel callback uid: {0}, channel: {1}, version: {2}",
             uid, channelName, IRtcEngine.GetSdkVersion());
         Debug_Log(joinSuccessMessage);
         AgoraPlayerController.instance.OnChannelJoins(uid);
@@ -28,7 +28,7 @@ public class AgoraApiHandlersImpl
     {
         if (this != null)  // because the destructor may call it
         {
-            string leaveChannelMessage = string.Format("onLeaveChannel callback duration {0}, tx: {1}, rx: {2}, tx kbps: {3}, rx kbps: {4}", 
+            string leaveChannelMessage = string.Format("onLeaveChannel callback duration {0}, tx: {1}, rx: {2}, tx kbps: {3}, rx kbps: {4}",
                 stats.duration, stats.txBytes, stats.rxBytes, stats.txKBitRate, stats.rxKBitRate);
             Debug_Log(leaveChannelMessage);
         }
@@ -56,7 +56,7 @@ public class AgoraApiHandlersImpl
 
         for (int idx = 0; idx < speakerNumber; idx++)
         {
-            string volumeIndicationMessage = string.Format("{0} onVolumeIndication {1} {2}", 
+            string volumeIndicationMessage = string.Format("{0} onVolumeIndication {1} {2}",
                 speakerNumber, speakers[idx].uid, speakers[idx].volume);
             Debug_Log(volumeIndicationMessage);
         }
@@ -84,8 +84,8 @@ public class AgoraApiHandlersImpl
 
     protected void RtcStatsHandler(RtcStats stats)
     {
-        string rtcStatsMessage = string.Format("onRtcStats callback duration {0}, tx: {1}, rx: {2}, tx kbps: {3}, rx kbps: {4}, tx(a) kbps: {5}, rx(a) kbps: {6} users {7}",
-            stats.duration, stats.txBytes, stats.rxBytes, stats.txKBitRate, stats.rxKBitRate, stats.txAudioKBitRate, stats.rxAudioKBitRate, stats.users);
+        string rtcStatsMessage = string.Format("onRtcStats callback duration {0}, tx: {1}, rx: {2}, tx kbps: {3}, rx kbps: {4}, tx(a) kbps: {5}, rx(a) kbps: {6} #users {7}",
+            stats.duration, stats.txBytes, stats.rxBytes, stats.txKBitRate, stats.rxKBitRate, stats.txAudioKBitRate, stats.rxAudioKBitRate, stats.userCount);
         //  Debug.Log(rtcStatsMessage);
 
         int lengthOfMixingFile = mRtcEngine.GetAudioMixingDuration();
@@ -126,7 +126,7 @@ public class AgoraApiHandlersImpl
 
     protected void ReJoinChannelSuccessHandler(string channelName, uint uid, int elapsed)
     {
-        Debug_Log(string.Format("ReJoinChannelSuccessHandler - channelName:{0} uid:{1} elapsed:{2}", 
+        Debug_Log(string.Format("ReJoinChannelSuccessHandler - channelName:{0} uid:{1} elapsed:{2}",
             channelName, uid, elapsed));
     }
 
@@ -143,7 +143,11 @@ public class AgoraApiHandlersImpl
     {
     }
 
-    protected void OnClientRoleChangedHandler(int oldRole, int newRole)
+    protected void OnClientRoleChangedHandler(CLIENT_ROLE_TYPE oldRole, CLIENT_ROLE_TYPE newRole)
+    {
+    }
+
+    protected void OnUserMuteAudioHandler(uint uid, bool muted)
     {
     }
 
@@ -235,12 +239,12 @@ public class AgoraApiHandlersImpl
         mRtcEngine.OnStreamUnpublished += OnStreamUnpublishedHandler;
 
         mRtcEngine.OnUserJoined += UserJoinedHandler;
-        mRtcEngine.OnUserMuted += OnUserMuteVideoHandler;
+        mRtcEngine.OnUserMutedAudio += OnUserMuteAudioHandler;
         mRtcEngine.OnUserMuteVideo += OnUserMuteVideoHandler;
         mRtcEngine.OnUserOffline += UserOfflineHandler;
         mRtcEngine.OnVideoSizeChanged += OnVideoSizeChangedHandler;
         mRtcEngine.OnVolumeIndication += VolumeIndicationHandler;
-     //   mRtcEngine.OnWarning += SDKWarningHandler;
+        //   mRtcEngine.OnWarning += SDKWarningHandler;
 
     }
 }
