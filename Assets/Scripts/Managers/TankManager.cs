@@ -40,6 +40,8 @@ namespace Tanks.TankControllers
         protected int m_Rank = -1;
 
         [SerializeField]
+        GameObject RenderObject;  // where to put videoSurface
+
         VideoSurface videoSurface;
 
         #endregion
@@ -248,6 +250,10 @@ namespace Tanks.TankControllers
                 // DisableShooting();
             }
             player.CmdSetReady();
+            if (videoSurface == null)
+            {
+                videoSurface = RenderObject.AddComponent<VideoSurface>();
+            }
 
             if (player.isLocalPlayer)
             {

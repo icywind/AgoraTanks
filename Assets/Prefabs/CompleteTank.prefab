@@ -748,7 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb8cdb8b19a50648b1ef1fb26a74db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  videoSurface: {fileID: 2772251079934334432}
+  RenderObject: {fileID: 2312063964644929001}
 --- !u!114 &114000014242460566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,7 +1106,6 @@ GameObject:
   - component: {fileID: 6908623874093256622}
   - component: {fileID: 195589092359014064}
   - component: {fileID: 8774477444372482779}
-  - component: {fileID: 2772251079934334432}
   m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
@@ -1199,16 +1198,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c12c1c2981c54bc4800d8f9dfe9ac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2772251079934334432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2312063964644929001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f81186fc508409281034f007e7e02d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VideoSurfaceType: 0
