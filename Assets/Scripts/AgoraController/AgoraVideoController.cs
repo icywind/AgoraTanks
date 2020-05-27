@@ -7,7 +7,7 @@ using Tanks.TankControllers;
 using UnityEngine.Android;
 #endif
 
-public class AgoraVideoController 
+public class AgoraVideoController
 {
     public static AgoraVideoController instance
     {
@@ -21,7 +21,7 @@ public class AgoraVideoController
         }
     }
 
-	private static AgoraVideoController _instance;
+    private static AgoraVideoController _instance;
 
     private IRtcEngine mRtcEngine;
     private AgoraApiHandlersImpl agoraAPI;
@@ -60,10 +60,16 @@ public class AgoraVideoController
 
     public void JoinChannel(string channelName, uint playerId = 0)
     {
-        mRtcEngine.EnableVideo();
-        mRtcEngine.EnableVideoObserver();
+        //mRtcEngine.EnableVideo();
+        //mRtcEngine.EnableVideoObserver();
         mRtcEngine.JoinChannel(channelName, "extra", playerId); // join the channel with given match name
         Debug_Log(playerId.ToString() + " joining channel:" + channelName);
+    }
+
+    public void EnableVideo()
+    {
+        mRtcEngine.EnableVideo();
+        mRtcEngine.EnableVideoObserver();
     }
 
     public void LeaveChannel()
@@ -91,7 +97,7 @@ public class AgoraVideoController
         {
             mRtcEngine.EnableVideo();
         }
-        
+
         GameObject localVideo = GameObject.Find(TankManager.LocalTankVideoName);
         if (localVideo != null)
         {
@@ -100,7 +106,7 @@ public class AgoraVideoController
         }
         else if (localVideoCache != null)
         {
-            localVideoCache.SetActive(!mute); 
+            localVideoCache.SetActive(!mute);
         }
     }
 
